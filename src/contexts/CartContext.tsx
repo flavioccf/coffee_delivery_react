@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useReducer } from "react";
+import { createContext, ReactNode, useEffect, useReducer } from "react";
 import {
   CartItem,
   cartReducer,
@@ -8,6 +8,9 @@ import { addToCartAcion, updateCartAction } from "../reducers/cart/actions";
 
 interface CartContextType {
   cartState: CartStateInterface;
+  totalQuantity: number;
+  currency: string;
+  shippingPrice: number;
   addToCart: (coffeItemId: string, quantity: number) => void;
   updateCart: (cartItem: CartItem, quantity: number) => void;
 }
@@ -34,6 +37,11 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     }
   );
 
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cartState);
+    localStorage.setItem("@coffee-shop:cart-state-1.0.0", stateJSON);
+  }, [cartState]);
+
   function addToCart(coffeItemId: string, quantity: number) {
     dispatch(addToCartAcion(coffeItemId, quantity));
   }
@@ -42,8 +50,22 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(updateCartAction(cartItem, quantity));
   }
 
+  const totalQuantity = cartState.items.reduce(
+    (acc, current) => acc + current.quantity,
+    0
+  );
+
   return (
-    <CartContext.Provider value={{ cartState, addToCart, updateCart }}>
+    <CartContext.Provider
+      value={{
+        cartState,
+        addToCart,
+        updateCart,
+        totalQuantity,
+        currency: "CAD",
+        shippingPrice: 3.5,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
