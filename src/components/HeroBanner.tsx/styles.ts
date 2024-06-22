@@ -58,7 +58,7 @@ export enum listColors {
 }
 
 interface listColorProps {
-  statusColor: listColors
+  $statusColor: listColors
 }
 
 export const ListItem = styled.li<listColorProps>`
@@ -69,7 +69,7 @@ export const ListItem = styled.li<listColorProps>`
   width: 50%;
   
   span {
-    background: ${(props) => props.theme[props.statusColor]};
+    background: ${(props) => props.theme[props.$statusColor]};
     color: ${(props) => props.theme.white};
     width: 2rem;
     height: 2rem;

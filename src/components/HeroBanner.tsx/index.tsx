@@ -16,25 +16,25 @@ export function HeroBanner() {
           </h3>
         </span>
         <ul>
-          <ListItem statusColor={listColors.DARK_YELLOW}>
+          <ListItem $statusColor={listColors.DARK_YELLOW}>
             <span>
               <ShoppingCart weight="fill" size={16} />
             </span>
             Easy and safe shopping
           </ListItem>
-          <ListItem statusColor={listColors.GRAY}>
+          <ListItem $statusColor={listColors.GRAY}>
             <span>
               <Package weight="fill" size={16} />
             </span>
             Keep you coffee warm
           </ListItem>
-          <ListItem statusColor={listColors.YELLOW}>
+          <ListItem $statusColor={listColors.YELLOW}>
             <span>
               <Timer weight="fill" size={16} />
             </span>
             Fast and tracked delivery
           </ListItem>
-          <ListItem statusColor={listColors.PURPLE}>
+          <ListItem $statusColor={listColors.PURPLE}>
             <span>
               <Coffee weight="fill" size={16} />
             </span>

@@ -12,7 +12,7 @@ export function Home() {
       <h2>Our Coffees</h2>
       <CoffeListContainer>
         {coffeItems.map((coffeItem) => {
-          return <CoffeCard {...coffeItem} />;
+          return <CoffeCard {...coffeItem} key={coffeItem.id} />;
         })}
       </CoffeListContainer>
     </HomeContainer>

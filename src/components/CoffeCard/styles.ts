@@ -51,11 +51,12 @@ export const CoffeeTagsContainer = styled.div`
 `
 
 export const CoffeeListItemForm = styled.form`
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.4375rem;
-    span {
+    > span {
       font-family: "Baloo 2", sans-serif;
       font-size: 1.5rem;
       line-height: 130%;
@@ -76,6 +77,12 @@ export const CoffeeListItemForm = styled.form`
       height: 38px;
       gap: 0.5rem;
       input {
+        display: none;
+      }
+      label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         width: 100%;
         max-width: 72px;
         height: inherit;
@@ -85,6 +92,13 @@ export const CoffeeListItemForm = styled.form`
         border-radius: 6px;
         background-color: ${(props) => props.theme["base-button"]};
         color: ${(props) => props.theme["base-title"]};
+        font-size: 1rem;
+        line-height: 130%;
+        padding: 0 0.4rem;
+        span {
+          color: ${(props) => props.theme.purple};
+          cursor: pointer;
+        }
       }
       button {
         display: flex;
