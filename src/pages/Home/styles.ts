@@ -27,3 +27,8 @@ export const CoffeListContainer = styled.ul`
     text-align: center;
   }
 `
+
+export const CoffeListItem = styled.li`
+  background-color: ${(props) => props.theme["gray-300"]};
+  border-radius: 8px 50% 8px 50%;
+`
