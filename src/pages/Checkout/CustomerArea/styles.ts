@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CustomerAreaForm = styled.form`
+export const CustomerAreaInputsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -23,7 +23,7 @@ export enum customerAreaTitleColors {
 }
 
 interface CustomerAreaTitleProps {
-  icon_color?: customerAreaTitleColors;
+  $icon_color?: customerAreaTitleColors;
 }
 
 export const CustomerAreaTitle = styled.div<CustomerAreaTitleProps>`
@@ -42,8 +42,8 @@ export const CustomerAreaTitle = styled.div<CustomerAreaTitleProps>`
   }
   svg {
     ${(props) => {
-      if (props?.icon_color) {
-        return `color: ${props.theme[props.icon_color]}`;
+      if (props?.$icon_color) {
+        return `color: ${props.theme[props.$icon_color]}`;
       }
     }}
   }
@@ -58,7 +58,7 @@ export const CustomerAreaInputContainer = styled.div`
 `;
 
 interface CustomerAreaInputProps {
-  input_width?: number;
+  $input_width?: number;
 }
 
 export const CustomerAreaInput = styled.input<CustomerAreaInputProps>`
@@ -71,7 +71,9 @@ export const CustomerAreaInput = styled.input<CustomerAreaInputProps>`
   border-radius: 4px;
   border: 1px solid ${(props) => props.theme["base-button"]};
   width: ${(props) => {
-    return props?.input_width ? `calc(${props.input_width}% - 0.5rem)` : "100%";
+    return props?.$input_width
+      ? `calc(${props.$input_width}% - 0.5rem)`
+      : "100%";
   }};
 `;
 

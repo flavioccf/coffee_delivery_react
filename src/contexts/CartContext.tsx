@@ -1,3 +1,5 @@
+import * as zod from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { createContext, ReactNode, useEffect, useReducer } from "react";
 import {
   CartItem,
@@ -5,15 +7,31 @@ import {
   CartStateInterface,
 } from "../reducers/cart/reducer";
 import { addToCartAcion, updateCartAction } from "../reducers/cart/actions";
+import { useForm, UseFormReturn } from "react-hook-form";
 
 interface CartContextType {
   cartState: CartStateInterface;
   totalQuantity: number;
   currency: string;
   shippingPrice: number;
+  customerForm: UseFormReturn<CheckoutFomData>;
   addToCart: (coffeItemId: string, quantity: number) => void;
   updateCart: (cartItem: CartItem, quantity: number) => void;
+  handleSubmitCheckoutData: (data: CheckoutFomData) => void;
 }
+
+const checkoutFormValidationSchema = zod.object({
+  zip: zod.string().min(6, "Inform the ZIP"),
+  street: zod.string().min(2, "Inform the Street"),
+  unit: zod.string().optional(),
+  city: zod.string().min(2, "Inform the City"),
+  state_province: zod.string().min(2, "Inform the State/Province"),
+  payment_type: zod.enum(["credit_card", "debit_card", "cash"], {
+    invalid_type_error: "Add a payment type",
+  }),
+});
+
+export type CheckoutFomData = zod.infer<typeof checkoutFormValidationSchema>;
 
 export const CartContext = createContext({} as CartContextType);
 
@@ -37,6 +55,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     }
   );
 
+  const customerForm = useForm<CheckoutFomData>({
+    resolver: zodResolver(checkoutFormValidationSchema),
+  });
+
   useEffect(() => {
     const stateJSON = JSON.stringify(cartState);
     localStorage.setItem("@coffee-shop:cart-state-1.0.0", stateJSON);
@@ -55,6 +77,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     0
   );
 
+  function handleSubmitCheckoutData(data: CheckoutFomData) {
+    console.log(data);
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -64,6 +90,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         totalQuantity,
         currency: "CAD",
         shippingPrice: 3.5,
+        customerForm,
+        handleSubmitCheckoutData,
       }}
     >
       {children}

@@ -19,6 +19,7 @@ export function CartArea() {
       currency: currency,
     }).format(value);
   };
+
   const cartHasItems = !!cartState.items.length;
   return (
     <CartAreaDiv>
@@ -84,7 +85,9 @@ export function CartArea() {
               <span>{formatToCurrency(cartState.total + shippingPrice)}</span>
             </li>
           </CartSummaryList>
-          <CartCheckoutButton type="submit">CHECKOUT</CartCheckoutButton>
+          <CartCheckoutButton form="checkout" type="submit">
+            CHECKOUT
+          </CartCheckoutButton>
         </>
       ) : (
         <CartEmpty>

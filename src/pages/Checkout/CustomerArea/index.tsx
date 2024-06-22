@@ -1,5 +1,3 @@
-import * as zod from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Bank,
   CreditCard,
@@ -7,42 +5,40 @@ import {
   MapPinLine,
   Money,
 } from "phosphor-react";
-import { useForm } from "react-hook-form";
 import {
-  CustomerAreaForm,
+  CustomerAreaInputsContainer,
   CustomerAreaInput,
   CustomerAreaInputContainer,
   CustomerAreaRadioLabel,
   CustomerAreaTitle,
   customerAreaTitleColors,
 } from "./styles";
-
-const customerFormValidationSchema = zod.object({
-  zip: zod.string(),
-  street: zod.string(),
-  unit: zod.string().optional(),
-  city: zod.string(),
-  state_province: zod.string(),
-  payment_type: zod.enum(["credit_card", "debit_card", "cash"]),
-});
-
-type CustomerFormData = zod.infer<typeof customerFormValidationSchema>;
+import { useContext, useEffect } from "react";
+import { CartContext, CheckoutFomData } from "../../../contexts/CartContext";
+import { toast } from "react-toastify";
 
 export function CustomerArea() {
-  const userForm = useForm<CustomerFormData>({
-    resolver: zodResolver(customerFormValidationSchema),
-  });
+  const { customerForm } = useContext(CartContext);
+  const {
+    register,
+    formState: { errors },
+  } = customerForm;
 
-  const { handleSubmit } = userForm;
-
-  const handleSubmitCustomerData = (data: CustomerFormData) => {
-    console.log(data);
-  };
+  useEffect(() => {
+    (Object.keys(errors) as Array<keyof CheckoutFomData>).forEach(
+      (fieldName) => {
+        const error = errors[fieldName];
+        if (error) {
+          toast.error(error.message);
+        }
+      }
+    );
+  }, [errors]);
 
   return (
-    <CustomerAreaForm onSubmit={handleSubmit(handleSubmitCustomerData)}>
+    <CustomerAreaInputsContainer>
       <div>
-        <CustomerAreaTitle icon_color={customerAreaTitleColors.YELLOW}>
+        <CustomerAreaTitle $icon_color={customerAreaTitleColors.YELLOW}>
           <MapPinLine size={22} />
           <h3>
             Delivery Address
@@ -52,43 +48,38 @@ export function CustomerArea() {
         <CustomerAreaInputContainer>
           <CustomerAreaInput
             type="text"
-            name="zip"
-            defaultValue={""}
+            {...register("zip")}
             placeholder="ZIP"
-            input_width={35}
+            $input_width={35}
           />
           <CustomerAreaInput
             type="text"
-            name="street"
-            defaultValue={""}
+            {...register("street")}
             placeholder="Street"
-            input_width={70}
+            $input_width={70}
           />
           <CustomerAreaInput
             type="text"
-            name="unit"
-            defaultValue={""}
+            {...register("unit")}
             placeholder="Unit (Optional)"
-            input_width={30}
+            $input_width={30}
           />
           <CustomerAreaInput
             type="text"
-            name="city"
-            defaultValue={""}
+            {...register("city")}
             placeholder="City"
-            input_width={70}
+            $input_width={70}
           />
           <CustomerAreaInput
             type="text"
-            name="state_province"
-            defaultValue={""}
+            {...register("state_province")}
             placeholder="State/Province"
-            input_width={30}
+            $input_width={30}
           />
         </CustomerAreaInputContainer>
       </div>
       <div>
-        <CustomerAreaTitle icon_color={customerAreaTitleColors.PURPLE}>
+        <CustomerAreaTitle $icon_color={customerAreaTitleColors.PURPLE}>
           <CurrencyDollar size={22} />
           <h3>
             Payment
@@ -104,7 +95,7 @@ export function CustomerArea() {
             <CustomerAreaInput
               id="payment_type_credit"
               type="radio"
-              name="payment_type"
+              {...register("payment_type")}
               value="credit_card"
             />
           </CustomerAreaRadioLabel>
@@ -116,7 +107,7 @@ export function CustomerArea() {
             <CustomerAreaInput
               id="payment_type_debit"
               type="radio"
-              name="payment_type"
+              {...register("payment_type")}
               value="debit_card"
             />
           </CustomerAreaRadioLabel>
@@ -128,12 +119,12 @@ export function CustomerArea() {
             <CustomerAreaInput
               id="payment_type_cash"
               type="radio"
-              name="payment_type"
+              {...register("payment_type")}
               value="cash"
             />
           </CustomerAreaRadioLabel>
         </CustomerAreaInputContainer>
       </div>
-    </CustomerAreaForm>
+    </CustomerAreaInputsContainer>
   );
 }
