@@ -37,7 +37,7 @@ export const CoffeCardContainer = styled.li`
     font-weight: 130%;
     color: ${(props) => props.theme["base-label"]};
   }
-`
+`;
 
 export const CoffeeTagsContainer = styled.div`
   display: flex;
@@ -54,69 +54,70 @@ export const CoffeeTagsContainer = styled.div`
     text-transform: uppercase;
     padding: 0.25rem 0.5rem;
   }
-`
+`;
 
 export const CoffeeListItemForm = styled.form`
-    width: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4375rem;
+  > span {
+    font-family: "Baloo 2", sans-serif;
+    font-size: 1.5rem;
+    line-height: 130%;
+    color: ${(props) => props.theme["base-text"]};
+    font-weight: 700;
+    &::before {
+      content: "R$ ";
+      font-size: 0.875rem;
+      font-weight: 400;
+      font-family: "Roboto", sans-serif;
+    }
+  }
+  div {
+    flex: 1;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.4375rem;
-    > span {
-      font-family: "Baloo 2", sans-serif;
-      font-size: 1.5rem;
-      line-height: 130%;
-      color: ${(props) => props.theme["base-text"]};
-      font-weight: 700;
-      &::before {
-        content: "R$ ";
-        font-size: 0.875rem;
-        font-weight: 400;
-        font-family: 'Roboto', sans-serif;
-      }
+    height: 38px;
+    gap: 0.5rem;
+    input {
+      display: none;
     }
-    div {
-      flex: 1;
+    label {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
-      height: 38px;
-      gap: 0.5rem;
-      input {
-        display: none;
-      }
-      label {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        max-width: 72px;
-        height: inherit;
-        text-align: center;
-        border: none;
-        outline: none;
-        border-radius: 6px;
-        background-color: ${(props) => props.theme["base-button"]};
-        color: ${(props) => props.theme["base-title"]};
-        font-size: 1rem;
-        line-height: 130%;
-        padding: 0 0.4rem;
-        span {
-          color: ${(props) => props.theme.purple};
-          cursor: pointer;
-        }
-      }
-      button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: none;
-        outline: none;
-        border-radius: 6px;
-        width: 38px;
-        height: inherit;
-        color: ${(props) => props.theme.white};
-        background-color: ${(props) => props.theme["purple-dark"]};
+      width: 100%;
+      max-width: 72px;
+      height: inherit;
+      text-align: center;
+      border: none;
+      outline: none;
+      border-radius: 6px;
+      background-color: ${(props) => props.theme["base-button"]};
+      color: ${(props) => props.theme["base-title"]};
+      font-size: 1rem;
+      line-height: 130%;
+      padding: 0 0.4rem;
+      span {
+        color: ${(props) => props.theme.purple};
+        cursor: pointer;
       }
     }
-`
+    button {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      outline: none;
+      border-radius: 6px;
+      width: 38px;
+      height: inherit;
+      color: ${(props) => props.theme.white};
+      background-color: ${(props) => props.theme["purple-dark"]};
+    }
+  }
+`;

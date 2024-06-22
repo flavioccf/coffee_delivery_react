@@ -20,7 +20,7 @@ type CoffeeListItemFormData = zod.infer<
 >;
 
 export function CoffeCard(props: CoffeeItem) {
-  const { cartState, addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
   const coffeeListItemForm = useForm<CoffeeListItemFormData>({
     resolver: zodResolver(coffeeListItemFormValidationSchema),
@@ -33,7 +33,6 @@ export function CoffeCard(props: CoffeeItem) {
 
   const handleAddCoffeeToCart = (data: CoffeeListItemFormData) => {
     addToCart(props.id, data.quantity);
-    console.log(cartState);
     reset();
   };
 
