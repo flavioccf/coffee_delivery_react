@@ -10,7 +10,7 @@ export const HomeContainer = styled.div`
     font-size: 2rem;
     line-height: 130%;
   }
-`
+`;
 
 export const CoffeListContainer = styled.ul`
   padding: 3rem 12%;
@@ -25,5 +25,22 @@ export const CoffeListContainer = styled.ul`
   li {
     width: calc((100% / 4) - 1.875rem);
   }
-`
 
+  @media (max-width: 1024px) {
+    li {
+      width: calc((100% / 3) - 1.875rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+    li {
+      width: calc((100% / 2) - 1.875rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    li {
+      width: 100%;
+    }
+  }
+`;

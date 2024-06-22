@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import heroBkg from "./../../assets/hero_bkg.svg"
+import heroBkg from "./../../assets/hero_bkg.svg";
 
 export const HeroBannerContainer = styled.div`
   background-image: url(${heroBkg});
@@ -27,10 +27,10 @@ export const HeroBannerContainer = styled.div`
         font-style: normal;
         font-size: 3rem;
         line-height: 130%;
-        color: ${props => props.theme["base-title"]};
+        color: ${(props) => props.theme["base-title"]};
       }
       h3 {
-        font-family: 'Robot', sans-serif;
+        font-family: "Robot", sans-serif;
         font-size: 1.25rem;
         font-weight: 400;
         line-height: 130%;
@@ -48,17 +48,21 @@ export const HeroBannerContainer = styled.div`
     flex-wrap: wrap;
     row-gap: 1.25rem;
   }
-`
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
+`;
 
 export enum listColors {
-  DARK_YELLOW = 'yellow-dark',
-  YELLOW = 'yellow',
-  GRAY = 'base-text',
-  PURPLE = 'purple'
+  DARK_YELLOW = "yellow-dark",
+  YELLOW = "yellow",
+  GRAY = "base-text",
+  PURPLE = "purple",
 }
 
-interface listColorProps {
-  $statusColor: listColors
+export interface listColorProps {
+  $statusColor: listColors;
 }
 
 export const ListItem = styled.li<listColorProps>`
@@ -67,7 +71,7 @@ export const ListItem = styled.li<listColorProps>`
   align-items: center;
   gap: 0.75rem;
   width: 50%;
-  
+
   span {
     background: ${(props) => props.theme[props.$statusColor]};
     color: ${(props) => props.theme.white};
@@ -78,4 +82,4 @@ export const ListItem = styled.li<listColorProps>`
     justify-content: center;
     align-items: center;
   }
-`
+`;

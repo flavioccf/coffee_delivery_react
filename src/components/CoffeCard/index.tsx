@@ -46,7 +46,7 @@ export function CoffeCard(props: CoffeeItem) {
 
   return (
     <CoffeCardContainer>
-      <img src={props.img} alt={props.name} />
+      <img src={`/images/coffees/${props.id}.png`} alt={props.name} />
       <CoffeeTagsContainer>
         {props.tags.map((tag) => (
           <span key={tag}>{tag}</span>

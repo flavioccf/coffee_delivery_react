@@ -8,16 +8,18 @@ import {
 } from "../reducers/cart/reducer";
 import { addToCartAcion, updateCartAction } from "../reducers/cart/actions";
 import { useForm, UseFormReturn } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface CartContextType {
   cartState: CartStateInterface;
   totalQuantity: number;
   currency: string;
   shippingPrice: number;
-  customerForm: UseFormReturn<CheckoutFomData>;
+  customerForm: UseFormReturn<CheckoutFormData>;
   addToCart: (coffeItemId: string, quantity: number) => void;
   updateCart: (cartItem: CartItem, quantity: number) => void;
-  handleSubmitCheckoutData: (data: CheckoutFomData) => void;
+  handleSubmitCheckoutData: (data: CheckoutFormData) => void;
 }
 
 const checkoutFormValidationSchema = zod.object({
@@ -31,7 +33,7 @@ const checkoutFormValidationSchema = zod.object({
   }),
 });
 
-export type CheckoutFomData = zod.infer<typeof checkoutFormValidationSchema>;
+export type CheckoutFormData = zod.infer<typeof checkoutFormValidationSchema>;
 
 export const CartContext = createContext({} as CartContextType);
 
@@ -40,6 +42,7 @@ interface CartContextProviderProps {
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
+  const navigate = useNavigate();
   const [cartState, dispatch] = useReducer(
     cartReducer,
     {
@@ -55,7 +58,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     }
   );
 
-  const customerForm = useForm<CheckoutFomData>({
+  const customerForm = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutFormValidationSchema),
   });
 
@@ -77,8 +80,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     0
   );
 
-  function handleSubmitCheckoutData(data: CheckoutFomData) {
+  function handleSubmitCheckoutData(data: CheckoutFormData) {
     console.log(data);
+    console.log(cartState);
+    if (!cartState.items) {
+      toast.error("Cart is empty");
+    } else {
+      navigate("/order");
+    }
   }
 
   return (
