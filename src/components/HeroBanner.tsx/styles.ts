@@ -27,7 +27,7 @@ export const HeroBannerContainer = styled.div`
         font-style: normal;
         font-size: 3rem;
         line-height: 130%;
-        color: ${props => props.theme["black-100"]};
+        color: ${props => props.theme["base-title"]};
       }
       h3 {
         font-family: 'Robot', sans-serif;
@@ -51,10 +51,10 @@ export const HeroBannerContainer = styled.div`
 `
 
 export enum listColors {
-  DARK_YELLOW = 'yellow-700',
-  YELLOW = 'yellow-500',
-  GRAY = 'gray-800',
-  PURPLE = 'purple-500'
+  DARK_YELLOW = 'yellow-dark',
+  YELLOW = 'yellow',
+  GRAY = 'base-text',
+  PURPLE = 'purple'
 }
 
 interface listColorProps {

@@ -28,13 +28,13 @@ export const BaseNavLink = styled(NavLink)`
 `
 
 export const LocationNavLink = styled(BaseNavLink)`
-  background-color: ${props => props.theme["purple-300"]};
-  color: ${props => props.theme["purple-700"]};
+  background-color: ${props => props.theme["purple-light"]};
+  color: ${props => props.theme["purple-dark"]};
 `
 
 export const CartNavLink = styled(BaseNavLink)`
-  background-color: ${props => props.theme["yellow-300"]};
-  color: ${props => props.theme["yellow-700"]};
+  background-color: ${props => props.theme["yellow-light"]};
+  color: ${props => props.theme["yellow-dark"]};
 `
 
 

@@ -1,6 +1,9 @@
-import { ShoppingCart } from "phosphor-react";
+import { CoffeCard } from "../../components/CoffeCard/index.tsx";
 import { HeroBanner } from "../../components/HeroBanner.tsx";
-import { CoffeListContainer, CoffeListItem, HomeContainer } from "./styles.ts";
+import { coffeeProductList } from "../../data/coffeeProductListt.ts";
+import { CoffeListContainer, HomeContainer } from "./styles.ts";
+
+const coffeItems = coffeeProductList;
 
 export function Home() {
   return (
@@ -8,24 +11,9 @@ export function Home() {
       <HeroBanner />
       <h2>Our Coffees</h2>
       <CoffeListContainer>
-        <CoffeListItem>
-          <span>
-            <span>traditional</span>
-          </span>
-          <h5>Traditional Espresso</h5>
-          <p>The most traditional espresso ever</p>
-          <div>
-            <span>9.90</span>
-            <input value={1}></input>
-            <button>
-              <ShoppingCart size={18} />
-            </button>
-          </div>
-        </CoffeListItem>
-        <li>Americano</li>
-        <li>Espresso</li>
-        <li>Americano</li>
-        <li>Americano</li>
+        {coffeItems.map((coffeItem) => {
+          return <CoffeCard {...coffeItem} />;
+        })}
       </CoffeListContainer>
     </HomeContainer>
   );

@@ -24,11 +24,6 @@ export const CoffeListContainer = styled.ul`
   column-gap: 2.5rem;
   li {
     width: calc((100% / 4) - 1.875rem);
-    text-align: center;
   }
 `
 
-export const CoffeListItem = styled.li`
-  background-color: ${(props) => props.theme["gray-300"]};
-  border-radius: 8px 50% 8px 50%;
-`
