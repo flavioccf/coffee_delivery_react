@@ -1,3 +1,5 @@
+import * as zod from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Minus, Plus, ShoppingCart } from "phosphor-react";
 import {
   CoffeCardContainer,
@@ -5,15 +7,44 @@ import {
   CoffeeTagsContainer,
 } from "./styles";
 import { CoffeeItem } from "../../data/coffeeProductListt";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/CartContext";
+
+const coffeeListItemFormValidationSchema = zod.object({
+  quantity: zod.number().min(1).max(99),
+});
+
+type CoffeeListItemFormData = zod.infer<
+  typeof coffeeListItemFormValidationSchema
+>;
 
 export function CoffeCard(props: CoffeeItem) {
-  const [quantity, setQuantity] = useState<number>(1);
+  const { cartState, addToCart } = useContext(CartContext);
 
-  const handleSetQuantity = (value: number) => {
-    const newQuantity = quantity + value;
-    setQuantity(newQuantity);
+  const coffeeListItemForm = useForm<CoffeeListItemFormData>({
+    resolver: zodResolver(coffeeListItemFormValidationSchema),
+    defaultValues: {
+      quantity: 1,
+    },
+  });
+
+  const { handleSubmit, watch, reset, setValue } = coffeeListItemForm;
+
+  const handleAddCoffeeToCart = (data: CoffeeListItemFormData) => {
+    addToCart(props.id, data.quantity);
+    console.log(cartState);
+    reset();
   };
+
+  const quantity = watch("quantity");
+
+  const handleSetQuantityValue = (quantityNumber: number) => {
+    let newQuantity = quantity + quantityNumber;
+    if (newQuantity <= 1) newQuantity = 1;
+    setValue("quantity", newQuantity);
+  };
+
   return (
     <CoffeCardContainer>
       <img src={props.img} alt={props.name} />
@@ -24,7 +55,7 @@ export function CoffeCard(props: CoffeeItem) {
       </CoffeeTagsContainer>
       <h5>{props.name}</h5>
       <p>{props.description}</p>
-      <CoffeeListItemForm>
+      <CoffeeListItemForm onSubmit={handleSubmit(handleAddCoffeeToCart)}>
         <span>{props.price}</span>
         <div>
           <label>
@@ -32,7 +63,7 @@ export function CoffeCard(props: CoffeeItem) {
               <Plus
                 weight="bold"
                 size={12}
-                onClick={() => handleSetQuantity(1)}
+                onClick={() => handleSetQuantityValue(1)}
               />
             </span>
             {quantity}
@@ -40,7 +71,7 @@ export function CoffeCard(props: CoffeeItem) {
               <Minus
                 weight="bold"
                 size={12}
-                onClick={() => handleSetQuantity(-1)}
+                onClick={() => handleSetQuantityValue(-1)}
               />
             </span>
             <input

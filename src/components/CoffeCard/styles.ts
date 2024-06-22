@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const CoffeCardContainer = styled.li`
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
   background-color: ${(props) => props.theme["base-card"]};
   border-radius: 6px 36px 6px 36px;
   display: flex;
@@ -13,6 +16,7 @@ export const CoffeCardContainer = styled.li`
   align-self: stretch;
   > *:not(img) {
     padding: 0 7.8%;
+    width: 100%;
   }
   img {
     width: 47%;
@@ -39,6 +43,7 @@ export const CoffeeTagsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.25rem;
   span {
     border-radius: 100px;
     background-color: ${(props) => props.theme["yellow-light"]};
@@ -47,6 +52,7 @@ export const CoffeeTagsContainer = styled.div`
     font-weight: 700;
     line-height: 130%;
     text-transform: uppercase;
+    padding: 0.25rem 0.5rem;
   }
 `
 
