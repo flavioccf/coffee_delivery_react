@@ -14,7 +14,7 @@ import {
   customerAreaTitleColors,
 } from "./styles";
 import { useContext, useEffect } from "react";
-import { CartContext, CheckoutFomData } from "../../../contexts/CartContext";
+import { CartContext, CheckoutFormData } from "../../../contexts/CartContext";
 import { toast } from "react-toastify";
 
 export function CustomerArea() {
@@ -25,7 +25,7 @@ export function CustomerArea() {
   } = customerForm;
 
   useEffect(() => {
-    (Object.keys(errors) as Array<keyof CheckoutFomData>).forEach(
+    (Object.keys(errors) as Array<keyof CheckoutFormData>).forEach(
       (fieldName) => {
         const error = errors[fieldName];
         if (error) {

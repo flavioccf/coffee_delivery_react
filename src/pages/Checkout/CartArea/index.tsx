@@ -29,7 +29,7 @@ export function CartArea() {
             {cartState.items.map((item) => {
               return (
                 <li key={item.id}>
-                  <img src={item.img} alt={item.name} />
+                  <img src={`/images/coffees/${item.id}.png`} alt={item.name} />
                   <div>
                     <h5>{item.name}</h5>
                     <span>
